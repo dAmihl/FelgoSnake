@@ -9,10 +9,7 @@ EntityBase {
     property int sprite_offset: 8
     entityType: "snakepart"
 
-    BoxCollider {
-        anchors.fill: sprite
-        collisionTestingOnlyMode: true
-    }
+
 
     function followParent()
     {

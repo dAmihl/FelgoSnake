@@ -2,9 +2,9 @@ import QtQuick 2.0
 import Felgo 3.0
 
 EntityBase {
+    entityType: "pickup"
 
-    entityId: "entity"
-    entityType: "customEntity"
+    signal pickedUp(Pickup obj)
 
     Rectangle {
         id: rect
@@ -21,6 +21,8 @@ EntityBase {
         fixture.onBeginContact: {
             // Contact with snake SnakeHead
             // todo destroy self
+            pickedUp(parent)
+            removeEntity()
         }
     }
 

@@ -21,7 +21,7 @@ SnakePart {
 
     // pickup collider
     BoxCollider {
-        anchors.fill: sprite
+        anchors.fill: parent
         collisionTestingOnlyMode: true
         categories: Box.Category1 // snake head
         collidesWith: Box.Category2 // Pickups
@@ -31,9 +31,20 @@ SnakePart {
         }
     }
 
+    // Snakebody collider
+    BoxCollider {
+        anchors.fill: parent
+        collisionTestingOnlyMode: true
+        categories: Box.Category1 // snake head
+        collidesWith: Box.Category3 // snake body parts
+        fixture.onBeginContact: {
+            console.log("Colided with body. Gameover!")
+        }
+    }
+
     // Auto mover
     Timer {
-        interval: 300
+        interval: 100
         id: moveTimer
         running: true
         repeat: true

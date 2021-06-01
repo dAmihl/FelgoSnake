@@ -11,6 +11,11 @@ SnakePart {
         color: "black"
     }
 
+    BoxCollider {
+        anchors.fill: parent
+        collisionTestingOnlyMode: true
+        categories: Box.Category3 // Snake body
+    }
 
 
 }

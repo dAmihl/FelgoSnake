@@ -23,11 +23,11 @@ GameWindow {
         id: scene
 
         // the "logical size" - the scene content is auto-scaled to match the GameWindow size
-        width: 480
-        height: 320
+        width: 240
+        height: 160
 
         PhysicsWorld{
-            debugDrawVisible: false
+            debugDrawVisible: true
             z: 1000
         }
 
@@ -44,9 +44,11 @@ GameWindow {
             y: scene.height/2
         }
 
-        Pickup {
-            x: 100
-            y: 100
+        PickupSpawner {
+            minX: 16
+            maxX: scene.width-16
+            minY: 16
+            maxY: scene.height-16
         }
 
         Keys.onUpPressed: {
