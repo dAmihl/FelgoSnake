@@ -11,17 +11,18 @@ SnakePart {
 
     Rectangle {
         id: sprite
-        width: 2
-        height: 2
+        width: 4
+        height: 4
         color: "red"
     }
 
     BoxCollider {
         anchors.fill: sprite
+
     }
 
     Timer {
-        interval: 100
+        interval: 300
         running: true
         repeat: true
         onTriggered: {
@@ -88,8 +89,8 @@ SnakePart {
             next.followParent()
         }
 
-        x += xDirection
-        y += yDirection
+        x += xDirection * sprite.width
+        y += yDirection * sprite.height
 
     }
 

@@ -6,7 +6,7 @@ EntityBase {
     property SnakePart parentPart
     property SnakePart next
     property int position
-    property int sprite_offset: 2
+    property int sprite_offset: 8
     entityType: "snakepart"
 
     BoxCollider {
@@ -38,7 +38,7 @@ EntityBase {
         var new_part_props = {
             parentPart: this,
             position: this.position + 1,
-            x: this.x + sprite.width + 3,
+            x: this.x + sprite.width + sprite_offset,
             y: this.y
         }
 

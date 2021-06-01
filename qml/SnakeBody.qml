@@ -6,13 +6,10 @@ SnakePart {
 
     Rectangle {
         id: sprite
-        width: 2
-        height: 2
+        width: 4
+        height: 4
         color: "black"
     }
-
-    x: parentPart.x + 1
-    y: parentPart.y
 
 
 

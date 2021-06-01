@@ -35,8 +35,8 @@ GameWindow {
         SnakeHead {
             id: snake
             xDirection: -1
-            x: 100
-            y: 100
+            x: scene.width / 2
+            y: scene.height/2
         }
 
 
