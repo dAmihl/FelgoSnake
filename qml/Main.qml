@@ -13,12 +13,31 @@ GameWindow {
     screenWidth: 960
     screenHeight: 640
 
+    EntityManager {
+        id: entityManager
+        entityContainer: scene
+    }
+
+
     Scene {
         id: scene
 
         // the "logical size" - the scene content is auto-scaled to match the GameWindow size
         width: 480
         height: 320
+
+        Rectangle{
+            id: background
+            anchors.fill: scene
+            color: "white"
+        }
+
+        SnakeHead {
+            id: snake
+            xDirection: -1
+            x: 100
+            y: 100
+        }
 
 
     }
