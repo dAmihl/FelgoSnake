@@ -26,6 +26,11 @@ GameWindow {
         width: 480
         height: 320
 
+        PhysicsWorld{
+            debugDrawVisible: false
+            z: 1000
+        }
+
         Rectangle{
             id: background
             anchors.fill: scene
@@ -39,6 +44,26 @@ GameWindow {
             y: scene.height/2
         }
 
+        Pickup {
+            x: 100
+            y: 100
+        }
+
+        Keys.onUpPressed: {
+            snake.changeDirectionTo(0, -1)
+        }
+
+        Keys.onDownPressed: {
+            snake.changeDirectionTo(0, 1)
+        }
+
+        Keys.onRightPressed: {
+            snake.changeDirectionTo(1, 0)
+        }
+
+        Keys.onLeftPressed: {
+            snake.changeDirectionTo(-1, 0)
+        }
 
     }
 }

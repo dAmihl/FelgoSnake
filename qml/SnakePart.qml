@@ -11,6 +11,7 @@ EntityBase {
 
     BoxCollider {
         anchors.fill: sprite
+        collisionTestingOnlyMode: true
     }
 
     function followParent()
@@ -33,17 +34,34 @@ EntityBase {
         }
     }
 
+    /**
+      * Spawn new snake part and add to "list"
+      */
     function spawnNewPart()
     {
         var new_part_props = {
             parentPart: this,
             position: this.position + 1,
-            x: this.x + sprite.width + sprite_offset,
+            x: this.x,
             y: this.y
         }
 
         var res = entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("SnakeBody.qml"), new_part_props)
         next = entityManager.getEntityById(res)
-        console.log("spawned new entity from " + this + "at "+next.x+"/"+next.y)
+        console.log("spawned new snake part from " + this + "at "+next.x+"/"+next.y)
+    }
+
+    /**
+      *Spawn new part at last part of snake
+      */
+    function recSpawnNewPart()
+    {
+        if (next)
+        {
+            next.recSpawnNewPart()
+        }else
+        {
+            spawnNewPart()
+        }
     }
 }

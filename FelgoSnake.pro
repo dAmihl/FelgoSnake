@@ -60,6 +60,7 @@ macx {
 }
 
 DISTFILES += \
+    qml/Pickup.qml \
     qml/SnakeBody.qml \
     qml/SnakeHead.qml \
     qml/SnakePart.qml

@@ -7,6 +7,9 @@ SnakePart {
     property int xDirection: 0
     property int yDirection: 0
 
+    // was direction changed between last movement and now?
+    property bool dirChanged: false
+
     position: 0
 
     Rectangle {
@@ -16,56 +19,56 @@ SnakePart {
         color: "red"
     }
 
+    // pickup collider
     BoxCollider {
         anchors.fill: sprite
-
+        collisionTestingOnlyMode: true
+        categories: Box.Category1 // snake head
+        collidesWith: Box.Category2 // Pickups
+        fixture.onBeginContact: {
+            console.log("Coll with pickup")
+            recSpawnNewPart()
+        }
     }
 
+    // Auto mover
     Timer {
         interval: 300
+        id: moveTimer
         running: true
         repeat: true
         onTriggered: {
-            moveForward()
+            tickMoveForward()
         }
     }
 
-    Timer{
-        interval: 3000
-        running:true
-        repeat:true
-        onTriggered: {
-            changeDirection()
-        }
-    }
 
-    function changeDirection()
+    function changeDirectionTo(x, y)
     {
-        if (yDirection == 0)
-        {
-            if (xDirection == -1)
-            {
-                xDirection = 0
-                yDirection = 1
-            }else if (xDirection == 1)
-            {
-                xDirection = 0
-                yDirection = -1
-            }
-        }else if (xDirection == 0)
-        {
-            if (yDirection == -1)
-            {
-                yDirection = 0
-                xDirection = -1
-            }else if (yDirection == 1)
-            {
-                yDirection = 0
-                xDirection = 1
-            }
+        if (dirChanged){
+            // dir already changed, wait for next moveForward()
+            return
         }
 
+        if (x !== 0 && y === 0 && xDirection == 0)
+        {
+            xDirection = x
+            yDirection = y
 
+            dirChanged = true
+            moveForward() // more responsive turns
+            moveTimer.restart()
+        }
+
+        if (y !== 0 && x === 0 && yDirection == 0)
+        {
+           yDirection = y
+           xDirection = x
+
+            dirChanged = true
+            moveForward() // more responsive turns
+            moveTimer.restart()
+        }
 
     }
 
@@ -82,6 +85,7 @@ SnakePart {
         }
     }
 
+
     function moveForward()
     {
         if (next)
@@ -91,9 +95,12 @@ SnakePart {
 
         x += xDirection * sprite.width
         y += yDirection * sprite.height
-
+        dirChanged = false
     }
 
-
+    function tickMoveForward()
+    {
+        moveForward()
+    }
 
 }
