@@ -60,8 +60,11 @@ macx {
 }
 
 DISTFILES += \
+    qml/GameScene.qml \
     qml/Pickup.qml \
     qml/PickupSpawner.qml \
+    qml/SceneBase.qml \
     qml/SnakeBody.qml \
     qml/SnakeHead.qml \
-    qml/SnakePart.qml
+    qml/SnakePart.qml \
+    qml/StartScene.qml

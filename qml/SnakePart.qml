@@ -38,7 +38,7 @@ EntityBase {
         var new_part_props = {
             parentPart: this,
             position: this.position + 1,
-            x: this.x,
+            x: this.x + sprite.width,
             y: this.y
         }
 

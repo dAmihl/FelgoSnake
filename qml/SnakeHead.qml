@@ -24,9 +24,23 @@ SnakePart {
         color: "red"
     }
 
+    Component.onCompleted: {
+        spawnNewPart()
+        if (next)
+        {
+            next.spawnNewPart()
+
+            if (next.next)
+            {
+                next.next.spawnNewPart()
+            }
+        }
+        moveTimer.start()
+    }
+
     // pickup collider
     BoxCollider {
-        anchors.fill: parent
+        anchors.fill: sprite
         collisionTestingOnlyMode: true
         categories: Box.Category1 // snake head
         collidesWith: Box.Category2 // Pickups
@@ -44,15 +58,20 @@ SnakePart {
         categories: Box.Category1 // snake head
         collidesWith: Box.Category3 // snake body parts
         fixture.onBeginContact: {
-            console.log("Colided with body. Gameover!")
+            gameOver()
         }
+    }
+
+    function gameOver()
+    {
+        console.log("Colided with body. Gameover!")
+        gameWindow.state = "start"
     }
 
     // Auto mover
     Timer {
         interval: 100
         id: moveTimer
-        running: true
         repeat: true
         onTriggered: {
             tickMoveForward()
@@ -111,18 +130,6 @@ SnakePart {
 
     }
 
-    Component.onCompleted: {
-        spawnNewPart()
-        if (next)
-        {
-            next.spawnNewPart()
-
-            if (next.next)
-            {
-                next.next.spawnNewPart()
-            }
-        }
-    }
 
 
     function moveForward()
@@ -136,18 +143,18 @@ SnakePart {
         y += yDirection * sprite.height
 
         // Screen wrap
-        if (x < minX)
+        if (x < minX + sprite.width)
         {
             x = maxX - Math.abs(minX - x)
-        }else if (x > maxX)
+        }else if (x > maxX - sprite.width)
         {
             x = minX + Math.abs(maxX - x)
         }
 
-        if (y < minY)
+        if (y < minY + sprite.height)
         {
             y = maxY - Math.abs(minY - y)
-        }else if (y > maxY)
+        }else if (y > maxY - sprite.height)
         {
             y = minY + Math.abs(maxY - y)
         }

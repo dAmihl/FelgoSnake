@@ -20,8 +20,8 @@ EntityBase {
     function spawnPickup()
     {
         var new_part_props = {
-            x = minX + Math.random()*maxX,
-            y = minY + Math.random()*maxY,
+            x = minX + Math.floor(Math.random()*maxX),
+            y = minY + Math.floor(Math.random()*maxY),
         }
 
         var res = entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Pickup.qml"), new_part_props)
