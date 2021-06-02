@@ -10,6 +10,11 @@ SnakePart {
     // was direction changed between last movement and now?
     property bool dirChanged: false
 
+    property int minX: 0
+    property int minY: 0
+    property int maxX: 100
+    property int maxY: 100
+
     position: 0
 
     Rectangle {
@@ -27,6 +32,7 @@ SnakePart {
         collidesWith: Box.Category2 // Pickups
         fixture.onBeginContact: {
             console.log("Coll with pickup")
+            eatanim.start()
             recSpawnNewPart()
         }
     }
@@ -50,6 +56,28 @@ SnakePart {
         repeat: true
         onTriggered: {
             tickMoveForward()
+        }
+    }
+
+
+    SequentialAnimation
+    {
+        id: eatanim
+
+        NumberAnimation{
+            target: sprite
+            property: "scale"
+            to: 1.5
+            duration: 200
+            easing.type: Easing.InOutCubic
+        }
+
+        NumberAnimation{
+            target: sprite
+            property: "scale"
+            to: 1.0
+            duration: 200
+            easing.type: Easing.InOutCubic
         }
     }
 
@@ -106,6 +134,24 @@ SnakePart {
 
         x += xDirection * sprite.width
         y += yDirection * sprite.height
+
+        // Screen wrap
+        if (x < minX)
+        {
+            x = maxX - Math.abs(minX - x)
+        }else if (x > maxX)
+        {
+            x = minX + Math.abs(maxX - x)
+        }
+
+        if (y < minY)
+        {
+            y = maxY - Math.abs(minY - y)
+        }else if (y > maxY)
+        {
+            y = minY + Math.abs(maxY - y)
+        }
+
         dirChanged = false
     }
 

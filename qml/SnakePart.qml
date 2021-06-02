@@ -10,7 +10,6 @@ EntityBase {
     entityType: "snakepart"
 
 
-
     function followParent()
     {
         if (next)

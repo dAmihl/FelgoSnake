@@ -8,8 +8,8 @@ EntityBase {
 
     Rectangle {
         id: rect
-        width: 4
-        height: 4
+        width: 3
+        height: 3
         color: "blue"
     }
 
@@ -21,7 +21,7 @@ EntityBase {
         fixture.onBeginContact: {
             // Contact with snake SnakeHead
             // todo destroy self
-            pickedUp(parent)
+            pickedUp(parent.entityId)
             removeEntity()
         }
     }

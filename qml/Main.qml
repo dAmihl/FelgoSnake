@@ -24,7 +24,9 @@ GameWindow {
 
         // the "logical size" - the scene content is auto-scaled to match the GameWindow size
         width: 240
-        height: 160
+        height: 120
+
+        property int currentScore: 0
 
         PhysicsWorld{
             debugDrawVisible: true
@@ -37,11 +39,33 @@ GameWindow {
             color: "white"
         }
 
+        Rectangle
+        {
+            id: score
+            anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter
+            anchors.top: scene.gameWindowAnchorItem.top
+            color: "black"
+            width: 30
+            height: 10
+
+            Text{
+                text: "Score " + scene.currentScore
+                color:"white"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                font.pixelSize: 8
+            }
+        }
+
         SnakeHead {
             id: snake
             xDirection: -1
             x: scene.width / 2
             y: scene.height/2
+            minX: 0
+            maxX: scene.width
+            minY: 0
+            maxY: scene.height
         }
 
         PickupSpawner {
@@ -49,6 +73,9 @@ GameWindow {
             maxX: scene.width-16
             minY: 16
             maxY: scene.height-16
+            onScoreIncrease: {
+                scene.currentScore++
+            }
         }
 
         Keys.onUpPressed: {
