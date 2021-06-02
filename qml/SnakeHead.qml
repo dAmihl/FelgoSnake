@@ -145,20 +145,22 @@ SnakePart {
         y += yDirection * sprite.height
 
         // Screen wrap
-        if (x < minX + sprite.width)
+        // origin of the snake part is in the top left corner of the rect
+        // so we dont need to add the rect width/height to the minX/minY location since it is already aligned with the border
+        if (x < minX)
         {
-            x = maxX - Math.abs(minX - x)
+            x = maxX - sprite.width
         }else if (x > maxX - sprite.width)
         {
-            x = minX + Math.abs(maxX - x)
+            x = minX
         }
 
-        if (y < minY + sprite.height)
+        if (y < minY)
         {
-            y = maxY - Math.abs(minY - y)
+            y = maxY - sprite.height
         }else if (y > maxY - sprite.height)
         {
-            y = minY + Math.abs(maxY - y)
+            y = minY
         }
 
         dirChanged = false

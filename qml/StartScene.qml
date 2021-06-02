@@ -15,7 +15,7 @@ SceneBase {
     }
 
     Text {
-        text: "Press to play"
+        text: "Click or Space to play"
         color: "white"
 
         anchors.horizontalCenter: parent.horizontalCenter
@@ -25,10 +25,19 @@ SceneBase {
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            console.log("Start play")
-            gameWindow.state = "game"
-            gamescene.setLevel("SnakeLevel.qml")
+            startPlay()
         }
+    }
+
+    function startPlay()
+    {
+        console.log("Start play")
+        gameWindow.state = "game"
+        gamescene.setLevel("SnakeLevel.qml")
+    }
+
+    Keys.onSpacePressed: {
+        startPlay()
     }
 
 }
