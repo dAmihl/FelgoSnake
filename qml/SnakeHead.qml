@@ -58,16 +58,8 @@ SnakePart {
         categories: Box.Category1 // snake head
         collidesWith: Box.Category3 // snake body parts
         fixture.onBeginContact: {
-            gameOver()
+            gamescene.gameOver()
         }
-    }
-
-    function gameOver()
-    {
-        console.log("Colided with body. Gameover!")
-        gameWindow.state = "start"
-        gamescene.activeLevel = undefined
-        gamescene.activeLevelFileName = ""
     }
 
     // Auto mover

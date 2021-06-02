@@ -22,6 +22,14 @@ SceneBase {
         anchors.centerIn: parent
     }
 
+    Text {
+        text: "Escape to quit"
+        color: "red"
+
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+    }
+
     MouseArea{
         anchors.fill: parent
         onClicked: {
@@ -38,6 +46,10 @@ SceneBase {
 
     Keys.onSpacePressed: {
         startPlay()
+    }
+
+    Keys.onEscapePressed: {
+        Qt.quit()
     }
 
 }

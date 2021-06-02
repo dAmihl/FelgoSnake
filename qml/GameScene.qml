@@ -38,7 +38,17 @@ SceneBase {
         activeLevel.changeSnakeDirection(-1, 0)
     }
 
+    Keys.onEscapePressed: {
+        gameOver()
+    }
 
+    function gameOver()
+    {
+        console.log("Colided with body. Gameover!")
+        gameWindow.state = "start"
+        gamescene.activeLevel = undefined
+        gamescene.activeLevelFileName = ""
+    }
 
     // load levels at runtime
     Loader {
