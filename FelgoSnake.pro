@@ -66,5 +66,6 @@ DISTFILES += \
     qml/SceneBase.qml \
     qml/SnakeBody.qml \
     qml/SnakeHead.qml \
+    qml/SnakeLevel.qml \
     qml/SnakePart.qml \
     qml/StartScene.qml

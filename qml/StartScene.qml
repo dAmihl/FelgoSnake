@@ -27,6 +27,7 @@ SceneBase {
         onClicked: {
             console.log("Start play")
             gameWindow.state = "game"
+            gamescene.setLevel("SnakeLevel.qml")
         }
     }
 

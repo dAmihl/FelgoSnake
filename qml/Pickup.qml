@@ -21,7 +21,7 @@ EntityBase {
         fixture.onBeginContact: {
             // Contact with snake SnakeHead
             // todo destroy self
-            pickedUp(parent.entityId)
+            pickedUp(parent)
             removeEntity()
         }
     }

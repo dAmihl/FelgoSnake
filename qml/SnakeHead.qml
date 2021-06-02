@@ -66,6 +66,8 @@ SnakePart {
     {
         console.log("Colided with body. Gameover!")
         gameWindow.state = "start"
+        gamescene.activeLevel = undefined
+        gamescene.activeLevelFileName = ""
     }
 
     // Auto mover

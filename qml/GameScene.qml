@@ -6,6 +6,10 @@ import Felgo 3.0
 SceneBase {
 
     id: gamescene
+    // the filename of the current level gets stored here, it is used for loading the
+    property string activeLevelFileName
+    // the currently loaded level gets stored here
+    property variant activeLevel
 
     // the "logical size" - the scene content is auto-scaled to match the GameWindow size
     width: 240
@@ -13,71 +17,41 @@ SceneBase {
 
     property int currentScore: 0
 
-    PhysicsWorld{
-        debugDrawVisible: true
-        z: 1000
-    }
-
-    Rectangle{
-        id: background
-        anchors.fill: gamescene
-        color: "white"
-    }
-
-    Rectangle
-    {
-        id: score
-        anchors.horizontalCenter: gamescene.gameWindowAnchorItem.horizontalCenter
-        anchors.top: gamescene.gameWindowAnchorItem.top
-        color: "black"
-        width: 30
-        height: 10
-
-        Text{
-            text: "Score " + gamescene.currentScore
-            color:"white"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            font.pixelSize: 8
-        }
-    }
-
-    SnakeHead {
-        id: snake
-        xDirection: -1
-        x: gamescene.width / 2
-        y: gamescene.height/2
-        minX: 0
-        maxX: gamescene.width
-        minY: 0
-        maxY: gamescene.height
-    }
-
-    PickupSpawner {
-        minX: 16
-        maxX: gamescene.width-16
-        minY: 16
-        maxY: gamescene.height-16
-        onScoreIncrease: {
-            gamescene.currentScore++
-        }
+    // set the name of the current level, this will cause the Loader to load the corresponding level
+    function setLevel(fileName) {
+      activeLevelFileName = fileName
     }
 
     Keys.onUpPressed: {
-        snake.changeDirectionTo(0, -1)
+        activeLevel.changeSnakeDirection(0, -1)
     }
 
     Keys.onDownPressed: {
-        snake.changeDirectionTo(0, 1)
+        activeLevel.changeSnakeDirection(0, 1)
     }
 
     Keys.onRightPressed: {
-        snake.changeDirectionTo(1, 0)
+        activeLevel.changeSnakeDirection(1, 0)
     }
 
     Keys.onLeftPressed: {
-        snake.changeDirectionTo(-1, 0)
+        activeLevel.changeSnakeDirection(-1, 0)
     }
 
+
+
+    // load levels at runtime
+    Loader {
+     id: loader
+     source: activeLevelFileName !== "" ? activeLevelFileName : ""
+     onLoaded: {
+        currentScore = 0
+        // since we did not define a width and height in the level item itself, we are doing it here
+        item.width = gamescene.width
+        item.height = gamescene.height
+        // store the loaded level as activeLevel for easier access
+        activeLevel = item
+        }
+    }
 
 }
